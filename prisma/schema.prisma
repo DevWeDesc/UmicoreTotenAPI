@@ -6,8 +6,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model ReportsDocuments {
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  cards     Cards[]
+}
+
+model Cards {
+  id        Int        @id @default(autoincrement())
+  name      String
+  cardDocument CardDocuments[]
+  categoryId Int
+  units      String[]
+  category  Category   @relation(fields: [categoryId], references: [id])
+  createdAt DateTime   @default(now())
+
+}
+
+model CardDocuments {
   id            Int            @id @default(autoincrement())
   documentsPath String[]
-  lead          String
+  cardId          Int
+  card            Cards          @relation(fields: [cardId], references: [id])
+
 }

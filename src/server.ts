@@ -1,5 +1,5 @@
 import Fastify, { FastifyReply, FastifyRequest } from "fastify";
-import { downPDFRoutes, sendPDFRoutes } from './routes/sendpdf.routes'
+import { sendPDFRoutes } from './routes/sendpdf.routes'
 import cors from '@fastify/cors'
 
 const app = Fastify();
@@ -11,7 +11,6 @@ const allowedOrigins = [
 app.register(cors, { origin: allowedOrigins })
 
 app.register(sendPDFRoutes);
-app.register(downPDFRoutes);
 
 app.get('/', async (_req: FastifyRequest, reply: FastifyReply) => reply.send({ api: 'ok' }))
 
