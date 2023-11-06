@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "seed": "ts-node seeds/seed.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.8.8",
+    "@types/node": "^20.8.10",
     "prisma": "^5.5.2",
+    "ts-node": "^10.9.1",
     "tsx": "^3.14.0",
     "typescript": "^5.2.2"
   },
