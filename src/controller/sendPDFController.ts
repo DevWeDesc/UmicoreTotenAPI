@@ -7,14 +7,15 @@ const prisma = new PrismaClient();
 
 export const sendPDFController = {
   createCategory: async (
-    request: FastifyRequest<{ Body: { category: string } }>,
+    request: FastifyRequest<{ Body: { category: string, unit: string } }>,
     reply: FastifyReply
   ) => {
     try {
-      const { category } = request.body;
+      const { category, unit } = request.body;
       const data = await prisma.category.create({
         data: {
           name: category,
+          unit,
         },
       });
       reply.status(201).send(data.id);
@@ -26,17 +27,17 @@ export const sendPDFController = {
 
   createCard: async (
     request: FastifyRequest<{
-      Body: { name: string; categoryId: number; units: string[] };
+      Body: { name: string; categoryId: number; requester: string };
     }>,
     reply: FastifyReply
   ) => {
     try {
-      const { name, categoryId, units } = request.body;
+      const { name, categoryId, requester } = request.body;
       const { id } = await prisma.cards.create({
         data: {
           name,
           categoryId,
-          units,
+          requester,
         },
       });
       reply.send(id).status(201);
@@ -135,13 +136,21 @@ export const sendPDFController = {
         const dto = {
           id: category.id,
           name: category.name,
-          units: category.units,
           documentsPath: documentsPath,
         };
         return dto;
       });
 
       reply.send(data).status(200);
+    } catch (error) {
+      reply.send({ message: error }).status(404);
+    }
+  },
+  
+  getUnits: async (_request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const units = await prisma.units.findMany();
+      reply.send(units).status(200);
     } catch (error) {
       reply.send({ message: error }).status(404);
     }

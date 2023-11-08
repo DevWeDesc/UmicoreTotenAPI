@@ -1,7 +1,17 @@
 -- CreateTable
+CREATE TABLE "Units" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "acronym" TEXT NOT NULL,
+
+    CONSTRAINT "Units_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Category" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "unit" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -13,7 +23,7 @@ CREATE TABLE "Cards" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "categoryId" INTEGER NOT NULL,
-    "units" TEXT[],
+    "requester" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Cards_pkey" PRIMARY KEY ("id")

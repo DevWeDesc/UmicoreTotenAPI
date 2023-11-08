@@ -7,29 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id        Int        @id @default(autoincrement())
+model Units {
+  id        Int      @id @default(autoincrement())
   name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  acronym   String
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  unit      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   cards     Cards[]
 }
 
 model Cards {
-  id        Int        @id @default(autoincrement())
-  name      String
+  id           Int             @id @default(autoincrement())
+  name         String
   cardDocument CardDocuments[]
-  categoryId Int
-  units      String[]
-  category  Category   @relation(fields: [categoryId], references: [id])
-  createdAt DateTime   @default(now())
+  categoryId   Int
+  requester    String
 
+  category  Category @relation(fields: [categoryId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model CardDocuments {
-  id            Int            @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
   documentsPath String[]
-  cardId          Int
-  card            Cards          @relation(fields: [cardId], references: [id])
-
+  cardId        Int
+  card          Cards    @relation(fields: [cardId], references: [id])
 }

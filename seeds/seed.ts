@@ -2,39 +2,69 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const unitsDataArray = [
+  {
+    name: "Americana",
+    acronym: 'amr'
+  },
+  {
+    name: "Guarulhos",
+    acronym: 'gru',
+  },
+  {
+    name: "Joinville",
+    acronym: 'jvl',
+  },
+  {
+    name: "Manaus",
+    acronym: 'mns',
+  },
+];
+
 const categoryDataArray = [
   {
     name: "Política de QEHS e Manual de Qualidade",
+    unit: "Americana",
   },
   {
     name: "Mapa de Processo e SWOT",
+    unit: "Guarulhos",
   },
   {
     name: "Processos e Procedimentos",
+    unit: "Joinville",
   },
   {
     name: "Indicadores de Qualidade",
+    unit: "Manaus",
   },
   {
     name: "Indicadores de Segurança",
+    unit: "Americana",
   },
   {
     name: "Auditorias de QEHS",
+    unit: "Manaus",
   },
   {
     name: "5S",
+    unit: "Americana",
   },
   {
     name: "Código de Segurança",
+    unit: "Americana",
   },
   {
     name: "ARPOS/ AAIA",
+    unit: "Guarulhos",
   },
   {
     name: "FISPQ",
+    unit: "Americana",
   },
   {
     name: "Dicas de QEHS",
+    unit: "Joinville",
   },
 ];
 
@@ -42,43 +72,42 @@ const cardsDataArray = [
   {
     name: "Política de QEHS",
     categoryId: 1,
-    units: ["gru", "rec"],
+    requester: "Fulano"
   },
   {
     name: "Manual do Sistema Gestão da Qualidade",
     categoryId: 1,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
   {
     name: "Mapa de Processo - MAP - PMC - 007",
     categoryId: 2,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
   {
     name: "Mapa de Processo - MAP - CORP - 002",
     categoryId: 2,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
   {
     name: "Mapa de Processo - MAP - PMC - 004",
     categoryId: 2,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
   {
     name: "Planilha de Abordagem de Riscos e Oportunidades",
     categoryId: 2,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
-
   {
     name: "SWOT Produção rev 5",
     categoryId: 2,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
   {
     name: "SWOT Gestão da Qualidade rev04",
     categoryId: 2,
-    units: ["gru", "rec"],
+    requester: "Fulano",
   },
 ];
 async function seed() {
@@ -91,7 +120,12 @@ async function seed() {
       data: cardsDataArray,
     });
 
-    console.log("Categorias e cards criados.", categories, cards);
+    const units = await prisma.units.createMany({
+      data: unitsDataArray,
+    });
+
+
+    console.log("Categorias e cards criados.", categories, cards, units);
   } catch (error) {
     console.error("Error ao adicionar seed e cards:", error);
   } finally {
