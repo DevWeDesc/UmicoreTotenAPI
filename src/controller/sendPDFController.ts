@@ -7,17 +7,17 @@ const prisma = new PrismaClient();
 
 export const sendPDFController = {
   createCategory: async (
-    request: FastifyRequest<{ Body: { name: string } }>,
+    request: FastifyRequest<{ Body: { category: string } }>,
     reply: FastifyReply
   ) => {
     try {
-      const { name } = request.body;
-      const { id } = await prisma.category.create({
+      const { category } = request.body;
+      const data = await prisma.category.create({
         data: {
-          name,
+          name: category,
         },
       });
-      reply.send(id).status(201);
+      reply.status(201).send(data.id);
     } catch (error) {
       console.log(error);
       reply.send({ message: error }).status(404);
@@ -66,7 +66,6 @@ export const sendPDFController = {
         },
       });
       reply.send(pdfPaths).status(201);
-      // reply.send("PDF CADASTRADO COM SUCESSO!", ).status(200);
     } catch (error) {
       console.log(error);
       reply.send({ message: error }).status(404);
