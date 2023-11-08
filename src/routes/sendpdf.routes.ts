@@ -11,4 +11,5 @@ export async function sendPDFRoutes(app:FastifyInstance) {
     app.get("/getcategories", sendPDFController.getCategories)
     app.get("/getcards/:categoryId", sendPDFController.getCards)
     app.get("/units", sendPDFController.getUnits)
+    app.get("/getcard", sendPDFController.getCard)
 }   

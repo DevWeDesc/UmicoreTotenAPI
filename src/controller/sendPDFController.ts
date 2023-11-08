@@ -155,4 +155,14 @@ export const sendPDFController = {
       reply.send({ message: error }).status(404);
     }
   },
+
+  getCard: async (_request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const cards = await prisma.cards.findMany();
+      reply.send(cards).status(200);
+    } catch (error) {
+      reply.send({ message: error }).status(404);
+    }
+  }
+  
 };
