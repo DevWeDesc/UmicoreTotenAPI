@@ -40,7 +40,7 @@ export const sendPDFController = {
           requester,
         },
       });
-      reply.send(id).status(201);
+      reply.status(201).send(id);
     } catch (error) {
       console.log(error);
       reply.send({ message: error }).status(404);
