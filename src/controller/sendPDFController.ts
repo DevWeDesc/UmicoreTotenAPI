@@ -56,17 +56,17 @@ export const sendPDFController = {
       const pdfFiles = request.files();
       const pdfPaths = await sendPDFServices.streamPdfs(pdfFiles);
 
-      if (!pdfPaths) {
-        return;
-      }
-
+      if (pdfPaths !== undefined && pdfPaths.length <= 0) {
+        return reply.status(404).send("Nenhum arquivo foi enviado");
+      } 
+      
       await prisma.cardDocuments.create({
         data: {
           documentsPath: pdfPaths,
           cardId: Number(id),
         },
       });
-      reply.send(pdfPaths).status(201);
+      reply.status(201).send(pdfPaths);
     } catch (error) {
       console.log(error);
       reply.send({ message: error }).status(404);
