@@ -6,9 +6,9 @@ const app = Fastify();
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://umicore-toten.vercel.app/',
-  'https://umicore-toten-git-main-wedesc.vercel.app/',
-  'https://umicore-toten-qgbrej191-wedesc.vercel.app/'
+  'https://umicore-toten.vercel.app',
+  'https://umicore-toten-git-main-wedesc.vercel.app',
+  'https://umicore-toten-qgbrej191-wedesc.vercel.app'
 ]
 
 app.register(cors, { origin: allowedOrigins })
