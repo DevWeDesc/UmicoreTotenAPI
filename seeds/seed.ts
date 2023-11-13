@@ -110,6 +110,14 @@ const cardsDataArray = [
     requester: "Fulano",
   },
 ];
+
+const pdfDataArray = [
+  {
+    documentsPath: ["Politica-QEHS"],
+    cardId: 1,
+  }
+]
+
 async function seed() {
   try {
     const categories = await prisma.category.createMany({
@@ -122,6 +130,9 @@ async function seed() {
 
     const units = await prisma.units.createMany({
       data: unitsDataArray,
+    });
+    const pdfs = await prisma.cardDocuments.createMany({
+      data: pdfDataArray,
     });
 
 
