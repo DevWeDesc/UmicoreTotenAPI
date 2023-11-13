@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "seed": "ts-node seeds/seed.ts",
-    "vercel-build": "npx prisma migrate deploy && npm run seed"
+    "vercel-build": "npm run seed"
   },
   "keywords": [],
   "author": "",
